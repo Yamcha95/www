@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil | Générateur de mots de passe{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Bienvenue sur StrongBox.</h1>
+    <p class="mb-4">Générez un mot de passe sécurisé recommandé par la CNIL :</p>
+
+    {{ form_start(form, {'attr': {'class': 'mb-4'}}) }}
+        <div class="row g-3">
+            <div class="col-md-3">
+                {{ form_row(form.length) }}
+            </div>
+            <div class="col-md-9">
+                {{ form_row(form.include_uppercase) }}
+                {{ form_row(form.include_lowercase) }}
+                {{ form_row(form.include_numbers) }}
+                {{ form_row(form.include_symbols) }}
+            </div>
+        </div>
+        <button class="btn btn-primary mt-3">Générer</button>
+    {{ form_end(form) }}
+
+    {% if password %}
+        <div class="alert alert-success mt-4">
+            <strong>Mot de passe généré :</strong><br>
+            <code style="font-size: 1.2em;">{{ password }}</code>
+        </div>
+    {% endif %}
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn btn-primary" type="button">+ Ajoutez un mot de passe</button>
+    </div>
+</div>
+{% endblock %}

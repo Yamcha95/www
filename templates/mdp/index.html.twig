@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mdp index{% endblock %}
+
+{% block body %}
+    <h1>Mdp index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Identifiant</th>
+                <th>Mdp</th>
+                <th>CreatedAt</th>
+                <th>UdpdateAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mdp in mdps %}
+            <tr>
+                <td>{{ mdp.id }}</td>
+                <td>{{ mdp.Titre }}</td>
+                <td>{{ mdp.Identifiant }}</td>
+                <td>{{ mdp.Mdp }}</td>
+                <td>{{ mdp.createdAt ? mdp.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ mdp.udpdateAt ? mdp.udpdateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_mdp_show', {'id': mdp.id}) }}">show</a>
+                    <a href="{{ path('app_mdp_edit', {'id': mdp.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_mdp_new') }}">Create new</a>
+{% endblock %}

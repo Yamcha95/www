@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Mdp{% endblock %}
+
+{% block body %}
+    <h1>Edit Mdp</h1>
+
+    {{ include('mdp/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_mdp_index') }}">back to list</a>
+
+    {{ include('mdp/_delete_form.html.twig') }}
+{% endblock %}
