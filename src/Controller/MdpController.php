@@ -6,11 +6,13 @@ use App\Entity\Mdp;
 use App\Form\MdpForm;
 use App\Repository\MdpRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[IsGranted('IS_AUTHENTICATED_FULLY')]  // Protéger tout le contrôleur
 #[Route('/mdp')]
 final class MdpController extends AbstractController
 {
@@ -71,7 +73,7 @@ final class MdpController extends AbstractController
     #[Route('/{id}', name: 'app_mdp_delete', methods: ['POST'])]
     public function delete(Request $request, Mdp $mdp, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$mdp->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$mdp->getId(), $request->request->get('_token'))) {
             $entityManager->remove($mdp);
             $entityManager->flush();
         }
