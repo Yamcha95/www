@@ -18,29 +18,18 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Mes mots de passes</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
       </ul>
 
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         {% if app.user %}
           <a class="btn btn-primary me-md-2" href="{{ path('app_profile') }}">
-            Bonjour, {{ app.user.username ?: app.user.email }}
+            Bonjour, {{ app.user.email }}
           </a>
+          <button type="button" class="btn btn-outline-danger" onclick="location.href='{{ path('app_logout') }}'">
+            Déconnexion
+          </button>
         {% else %}
-          <button class="btn btn-primary me-md-2" type="button" onclick="window.location.href='{{ path('app_register') }}'">Inscription</button>
+          <button class="btn btn-outline-secondary" type="button" onclick="window.location.href='{{ path('app_register') }}'">Inscription</button>
           <button class="btn btn-primary" type="button" onclick="window.location.href='{{ path('app_login') }}'">Connexion</button>
         {% endif %}
       </div>

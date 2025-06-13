@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[IsGranted('IS_AUTHENTICATED_FULLY')]  // Protéger tout le contrôleur
 #[Route('/mdp')]
 final class MdpController extends AbstractController
 {
@@ -27,22 +26,26 @@ final class MdpController extends AbstractController
     #[Route('/new', name: 'app_mdp_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $mdp = new Mdp();
-        $form = $this->createForm(MdpForm::class, $mdp);
-        $form->handleRequest($request);
+    $mdp = new Mdp();
+    $form = $this->createForm(MdpForm::class, $mdp);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($mdp);
-            $entityManager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+        // ✅ Associer l'utilisateur connecté
+        $mdp->setUser($this->getUser());
 
-            return $this->redirectToRoute('app_mdp_index', [], Response::HTTP_SEE_OTHER);
-        }
+        $entityManager->persist($mdp);
+        $entityManager->flush();
 
-        return $this->render('mdp/new.html.twig', [
-            'mdp' => $mdp,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('app_mdp_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    return $this->render('mdp/new.html.twig', [
+        'mdp' => $mdp,
+        'form' => $form,
+    ]);
+}
+
 
     #[Route('/{id}', name: 'app_mdp_show', methods: ['GET'])]
     public function show(Mdp $mdp): Response

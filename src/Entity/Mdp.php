@@ -14,19 +14,29 @@ class Mdp
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Titre = null;
+    private ?string $titre = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Identifiant = null;
+    private ?string $identifiant = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Mdp = null;
+    private ?string $mdp = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $udpdateAt = null;
+    private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -35,36 +45,36 @@ class Mdp
 
     public function getTitre(): ?string
     {
-        return $this->Titre;
+        return $this->titre;
     }
 
-    public function setTitre(string $Titre): static
+    public function setTitre(string $titre): static
     {
-        $this->Titre = $Titre;
+        $this->titre = $titre;
 
         return $this;
     }
 
     public function getIdentifiant(): ?string
     {
-        return $this->Identifiant;
+        return $this->identifiant;
     }
 
-    public function setIdentifiant(string $Identifiant): static
+    public function setIdentifiant(string $identifiant): static
     {
-        $this->Identifiant = $Identifiant;
+        $this->identifiant = $identifiant;
 
         return $this;
     }
 
     public function getMdp(): ?string
     {
-        return $this->Mdp;
+        return $this->mdp;
     }
 
-    public function setMdp(string $Mdp): static
+    public function setMdp(string $mdp): static
     {
-        $this->Mdp = $Mdp;
+        $this->mdp = $mdp;
 
         return $this;
     }
@@ -81,14 +91,26 @@ class Mdp
         return $this;
     }
 
-    public function getUdpdateAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->udpdateAt;
+        return $this->updatedAt;
     }
 
-    public function setUdpdateAt(\DateTimeImmutable $udpdateAt): static
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
-        $this->udpdateAt = $udpdateAt;
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

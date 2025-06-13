@@ -13,7 +13,7 @@
                 <th>Identifiant</th>
                 <th>Mdp</th>
                 <th>CreatedAt</th>
-                <th>UdpdateAt</th>
+                <th>UpdatedAt</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,7 +25,7 @@
                 <td>{{ mdp.Identifiant }}</td>
                 <td>{{ mdp.Mdp }}</td>
                 <td>{{ mdp.createdAt ? mdp.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ mdp.udpdateAt ? mdp.udpdateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ mdp.updatedAt ? mdp.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_mdp_show', {'id': mdp.id}) }}">show</a>
                     <a href="{{ path('app_mdp_edit', {'id': mdp.id}) }}">edit</a>
