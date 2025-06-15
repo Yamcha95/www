@@ -1,25 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <form method="post">
-        <h1 class="h3 mb-3 font-weight-normal">Create your account</h1>
+    <div class="container mt-5" style="max-width: 400px;">
+        <h1 class="h3 mb-4 text-center">Créer un compte</h1>
 
-        {% for flash_error in app.flashes('verify_email_error') %}
-            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label == 'danger' ? 'danger' : 'success' }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
 
         {{ form_start(registrationForm) }}
 
             <div class="mb-3">
-                {{ form_label(registrationForm.email) }}
+                {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
                 {{ form_errors(registrationForm.email) }}
             </div>
 
             <div class="mb-3">
-                {{ form_label(registrationForm.plainPassword, 'Password') }}
+                {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
                 {{ form_errors(registrationForm.plainPassword) }}
             </div>
@@ -30,8 +34,10 @@
                 {{ form_errors(registrationForm.agreeTerms) }}
             </div>
 
-            <button type="submit" class="btn btn-lg btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary w-100">
+                S'inscrire
+            </button>
 
         {{ form_end(registrationForm) }}
-    </form>
+    </div>
 {% endblock %}
