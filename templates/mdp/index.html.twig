@@ -14,21 +14,21 @@
                 <th>Mdp</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for mdp in mdps %}
+        {% for entry in mdps %}
             <tr>
-                <td>{{ mdp.id }}</td>
-                <td>{{ mdp.Titre }}</td>
-                <td>{{ mdp.Identifiant }}</td>
-                <td>{{ mdp.Mdp }}</td>
-                <td>{{ mdp.createdAt ? mdp.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ mdp.updatedAt ? mdp.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ entry.entity.id }}</td>
+                <td>{{ entry.entity.Titre }}</td>
+                <td>{{ entry.entity.Identifiant }}</td>
+                <td>{{ entry.decrypted }}</td>
+                <td>{{ entry.entity.createdAt ? entry.entity.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ entry.entity.updatedAt ? entry.entity.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_mdp_show', {'id': mdp.id}) }}">show</a>
-                    <a href="{{ path('app_mdp_edit', {'id': mdp.id}) }}">edit</a>
+                    <a href="{{ path('app_mdp_show', {'id': entry.entity.id}) }}">show</a>
+                    <a href="{{ path('app_mdp_edit', {'id': entry.entity.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
