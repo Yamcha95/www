@@ -8,10 +8,6 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ mdp.id }}</td>
-            </tr>
-            <tr>
                 <th>Titre</th>
                 <td>{{ mdp.Titre }}</td>
             </tr>
@@ -20,16 +16,16 @@
                 <td>{{ mdp.Identifiant }}</td>
             </tr>
             <tr>
-                <th>Mdp</th>
-                <td>{{ mdp.Mdp }}</td>
+                <th>Mot de passe:</th>
+                <td><strong>{{ decrypted }}</strong></td>
             </tr>
             <tr>
                 <th>CreatedAt</th>
-                <td>{{ mdp.createdAt ? mdp.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ mdp.createdAt ? mdp.createdAt|date('Y-m-d H:i')}}</td>
             </tr>
             <tr>
                 <th>UdpdateAt</th>
-                <td>{{ mdp.udpdateAt ? mdp.udpdateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ mdp.updatedAt|date('Y-m-d H:i') }}</td>
             </tr>
         </tbody>
     </table>

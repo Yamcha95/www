@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Titre</th>
                 <th>Identifiant</th>
                 <th>Mdp</th>
@@ -20,7 +19,6 @@
         <tbody>
         {% for entry in mdps %}
             <tr>
-                <td>{{ entry.entity.id }}</td>
                 <td>{{ entry.entity.Titre }}</td>
                 <td>{{ entry.entity.Identifiant }}</td>
                 <td>{{ entry.decrypted }}</td>
@@ -29,6 +27,10 @@
                 <td>
                     <a href="{{ path('app_mdp_show', {'id': entry.entity.id}) }}">show</a>
                     <a href="{{ path('app_mdp_edit', {'id': entry.entity.id}) }}">edit</a>
+                    <form method="post" action="{{ path('app_mdp_delete', {'id': entry.entity.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce mot de passe ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entry.entity.id) }}">
+                        <button class="btn btn-link text-danger p-0 m-0 align-baseline">delete</button>
+                    </form>
                 </td>
             </tr>
         {% else %}
