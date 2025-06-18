@@ -1,5 +1,7 @@
 parameters:
     app.encryption_key: '%env(APP_ENCRYPTION_KEY)%'
+    env(MONGODB_URL): ''
+    env(MONGODB_DB): ''
 
 services:
     _defaults:
