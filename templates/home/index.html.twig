@@ -22,12 +22,39 @@
         <button class="btn btn-primary mt-3">Générer</button>
     {{ form_end(form) }}
 
-    {% if password %}
-        <div class="alert alert-success mt-4">
-            <strong>Mot de passe généré :</strong><br>
-            <code style="font-size: 1.2em;">{{ password }}</code>
-        </div>
-    {% endif %}
+            {% if password %}
+            <div class="alert alert-success mt-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>Mot de passe généré :</strong><br>
+                    <code id="generated-password" style="font-size: 1.2em;">{{ password }}</code>
+                </div>
+                <button id="copy-btn" class="btn btn-outline-secondary btn-sm">Copier</button>
+            </div>
+
+            <!-- Toast Bootstrap -->
+            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                <div class="toast-body">
+                    Mot de passe copié !
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+            </div>
+
+            <script>
+            document.getElementById('copy-btn').addEventListener('click', () => {
+                const passwordText = document.getElementById('generated-password').innerText;
+                navigator.clipboard.writeText(passwordText).then(() => {
+                const toastEl = document.getElementById('copyToast');
+                const toast = new bootstrap.Toast(toastEl);
+                toast.show();
+                });
+            });
+            </script>
+        {% endif %}
+
     <div class="d-grid gap-2 col-6 mx-auto">
             <a href="{{ path('app_mdp_new') }}" class="btn btn-primary">+ Ajoutez un mot de passe</a>
     </div>

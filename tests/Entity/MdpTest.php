@@ -20,5 +20,4 @@ class MdpTest extends TestCase
         $this->assertEquals('motdepasse123', $mdp->getMdp());
     }
 
-    // Ajoute d’autres tests pour ta logique métier si besoin
 }

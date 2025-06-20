@@ -3,16 +3,16 @@
 {% block title %}Mdp index{% endblock %}
 
 {% block body %}
-    <h1>Mdp index</h1>
+    <h1 class="mb-4">Liste des mots de passe</h1>
 
-    <table class="table">
-        <thead>
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
             <tr>
                 <th>Titre</th>
                 <th>Identifiant</th>
-                <th>Mdp</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
+                <th>Mot de passe</th>
+                <th>Créé le</th>
+                <th>Modifié le</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -21,25 +21,61 @@
             <tr>
                 <td>{{ entry.entity.Titre }}</td>
                 <td>{{ entry.entity.Identifiant }}</td>
-                <td>{{ entry.decrypted }}</td>
+                <td class="d-flex align-items-center">
+                    <span id="mdp-{{ loop.index }}" class="me-2">{{ entry.decrypted }}</span>
+                    <button class="btn btn-sm btn-light border" onclick="copyToClipboard('mdp-{{ loop.index }}')" title="Copier">
+                        <i class="bi bi-clipboard small"></i>
+                    </button>
+                </td>
                 <td>{{ entry.entity.createdAt ? entry.entity.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ entry.entity.updatedAt ? entry.entity.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_mdp_show', {'id': entry.entity.id}) }}">show</a>
-                    <a href="{{ path('app_mdp_edit', {'id': entry.entity.id}) }}">edit</a>
+                <td class="text-nowrap">
+                    <a href="{{ path('app_mdp_show', {'id': entry.entity.id}) }}" class="btn btn-sm btn-outline-info me-1" title="Afficher">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="{{ path('app_mdp_edit', {'id': entry.entity.id}) }}" class="btn btn-sm btn-outline-warning me-1" title="Modifier">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
                     <form method="post" action="{{ path('app_mdp_delete', {'id': entry.entity.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce mot de passe ?');">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entry.entity.id) }}">
-                        <button class="btn btn-link text-danger p-0 m-0 align-baseline">delete</button>
+                        <button class="btn btn-sm btn-outline-danger" title="Supprimer">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </form>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="6" class="text-center text-muted">Aucun mot de passe trouvé.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_mdp_new') }}">Create new</a>
+    <a href="{{ path('app_mdp_new') }}" class="btn btn-outline-primary">+ Ajouter un mot de passe</a>
+
+    {# Toast de confirmation #}
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="copyToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Mot de passe copié dans le presse-papiers !
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(id) {
+            const el = document.getElementById(id);
+            navigator.clipboard.writeText(el.textContent.trim())
+                .then(() => {
+                    const toastEl = document.getElementById('copyToast');
+                    const toast = new bootstrap.Toast(toastEl);
+                    toast.show();
+                })
+                .catch(err => console.error('Erreur lors de la copie :', err));
+        }
+    </script>
 {% endblock %}
