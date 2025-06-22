@@ -22,11 +22,12 @@
                 <td>{{ entry.entity.Titre }}</td>
                 <td>{{ entry.entity.Identifiant }}</td>
                 <td class="d-flex align-items-center">
-                    <span id="mdp-{{ loop.index }}" class="me-2">{{ entry.decrypted }}</span>
+                    <span id="mdp-{{ loop.index }}" class="me-2" data-password="{{ entry.decrypted }}">••••••••</span>
                     <button class="btn btn-sm btn-light border" onclick="copyToClipboard('mdp-{{ loop.index }}')" title="Copier">
                         <i class="bi bi-clipboard small"></i>
                     </button>
                 </td>
+
                 <td>{{ entry.entity.createdAt ? entry.entity.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ entry.entity.updatedAt ? entry.entity.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td class="text-nowrap">
@@ -69,7 +70,8 @@
     <script>
         function copyToClipboard(id) {
             const el = document.getElementById(id);
-            navigator.clipboard.writeText(el.textContent.trim())
+            const password = el.getAttribute('data-password');
+            navigator.clipboard.writeText(password)
                 .then(() => {
                     const toastEl = document.getElementById('copyToast');
                     const toast = new bootstrap.Toast(toastEl);
