@@ -17,22 +17,22 @@ class PasswordGeneratorType extends AbstractType
                 'data' => 12, // valeur par défaut recommandée
             ])
             ->add('include_uppercase', CheckboxType::class, [
-                'label' => 'Inclure des majuscules',
+                'label' => 'Majuscules',
                 'required' => false,
                 'data' => true,
             ])
             ->add('include_lowercase', CheckboxType::class, [
-                'label' => 'Inclure des minuscules',
+                'label' => 'Minuscules',
                 'required' => false,
                 'data' => true,
             ])
             ->add('include_numbers', CheckboxType::class, [
-                'label' => 'Inclure des chiffres',
+                'label' => 'Chiffres',
                 'required' => false,
                 'data' => true,
             ])
             ->add('include_symbols', CheckboxType::class, [
-                'label' => 'Inclure des symboles',
+                'label' => 'Symboles',
                 'required' => false,
                 'data' => true,
             ]);

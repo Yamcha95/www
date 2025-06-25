@@ -49,10 +49,13 @@
             </li>
           </ul>
 
-          <div class="d-flex gap-2">
+          <div class="d-flex gap-2 align-items-center">
             {% if app.user %}
-              <a class="btn btn-primary" href="{{ path('app_profile') }}">
+              <a class="btn btn-primary d-flex align-items-center gap-2" href="{{ path('app_profile') }}">
                 Bonjour, {{ app.user.email }}
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                  <span class="badge bg-danger" style="font-size: 0.75rem;">Admin</span>
+                {% endif %}
               </a>
               <a class="btn btn-outline-danger" href="{{ path('app_logout') }}">Déconnexion</a>
             {% else %}

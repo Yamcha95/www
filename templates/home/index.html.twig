@@ -5,71 +5,78 @@
 {% block body %}
 <div class="container mt-5">
 
-    <section class="text-center mb-5">
-        <h1 class="display-4 fw-bold">Bienvenue sur <span class="text-primary">StrongBox</h1>
-        <p class="lead">La sécurité de vos mots de passe, simplifiée et renforcée.</p>
+    <section class="text-center mb-5 pt-5">
+        <h1 class="display-3 fw-bold mb-3">Bienvenue sur <span class="text-primary">StrongBox</span></h1>
+        <p class="lead fs-4 text-secondary mx-auto" style="max-width: 700px;">
+            La sécurité de vos mots de passe, simplifiée et renforcée. 
+        </p>
     </section>
 
-    <section class="mb-5">
+    <section class="mb-5 px-4 py-4 shadow-sm rounded bg-light">
+        <h4 class="card-title mb-4 fw-semibold text-center">Générez un mot de passe sécurisé recommandé par la CNIL !</h4>
 
-                <h5 class="card-title mb-4">Générez un mot de passe sécurisé recommandé par la CNIL!</h5>
-
-                {{ form_start(form, {'attr': {'class': 'mb-3'}}) }}
-                <div class="row">
-                    <div class="col-md-3">
-                        {{ form_row(form.length) }}
-                    </div>
-                    <div class="col-md-9">
-                        <div class="row">
-                            <div class="col-md-6">{{ form_row(form.include_uppercase) }}</div>
-                            <div class="col-md-6">{{ form_row(form.include_lowercase) }}</div>
-                            <div class="col-md-6">{{ form_row(form.include_numbers) }}</div>
-                            <div class="col-md-6">{{ form_row(form.include_symbols) }}</div>
-                        </div>
+        {{ form_start(form, {'attr': {'class': 'mb-3'}}) }}
+            <div class="row g-3 justify-content-center">
+                <div class="col-md-3">
+                    {{ form_row(form.length) }}
+                </div>
+                <div class="col-md-7">
+                    <div class="row g-3">
+                        <div class="col-6 col-md-3">{{ form_row(form.include_uppercase) }}</div>
+                        <div class="col-6 col-md-3">{{ form_row(form.include_lowercase) }}</div>
+                        <div class="col-6 col-md-3">{{ form_row(form.include_numbers) }}</div>
+                        <div class="col-6 col-md-3">{{ form_row(form.include_symbols) }}</div>
                     </div>
                 </div>
-                <div class="text-end mt-3">
-                    <button class="btn btn-primary">Générer</button>
-                </div>
-                {{ form_end(form) }}
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                <button class="btn btn-primary btn-lg px-5">Générer</button>
+            </div>
+        {{ form_end(form) }}
     </section>
 
     {% if password %}
-        <section class="mb-4">
-            <div class="alert alert-success d-flex justify-content-between align-items-center shadow-sm">
-                <div>
-                    <strong>Mot de passe généré :</strong><br>
-                    <code id="generated-password" style="font-size: 1.4em;">{{ password }}</code>
-                </div>
-                <button id="copy-btn" class="btn btn-secondary">Copier</button>
+        <section class="mb-5 px-4 py-3 bg-success bg-opacity-10 rounded shadow-sm d-flex justify-content-between align-items-center">
+            <div>
+                <strong class="text-success fs-5">Mot de passe généré :</strong><br>
+                <code id="generated-password" style="font-size: 1.4em;">{{ password }}</code>
             </div>
-
-            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="d-flex">
-                        <div class="toast-body">Mot de passe copié !</div>
-                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                document.getElementById('copy-btn').addEventListener('click', () => {
-                    const passwordText = document.getElementById('generated-password').innerText;
-                    navigator.clipboard.writeText(passwordText).then(() => {
-                        const toastEl = document.getElementById('copyToast');
-                        const toast = new bootstrap.Toast(toastEl);
-                        toast.show();
-                    });
-                });
-            </script>
+            <button id="copy-btn" class="btn btn-outline-success">Copier</button>
         </section>
+
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">Mot de passe copié !</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('copy-btn').addEventListener('click', () => {
+                const passwordText = document.getElementById('generated-password').innerText;
+                navigator.clipboard.writeText(passwordText).then(() => {
+                    const toastEl = document.getElementById('copyToast');
+                    const toast = new bootstrap.Toast(toastEl);
+                    toast.show();
+                });
+            });
+        </script>
     {% endif %}
 
     <section class="text-center mt-5">
-        <a href="{{ path('app_mdp_new') }}" class="btn btn-outline-primary btn-lg">
+        <a href="{{ path('app_mdp_new') }}" class="btn btn-outline-primary btn-lg px-4">
             ➕ Ajouter un mot de passe à votre coffre-fort
         </a>
+    </section>
+
+    <section class="mt-5 pt-5 border-top text-center text-muted" style="max-width: 600px; margin: 3rem auto 0;">
+        <p>
+            StrongBox est votre allié pour sécuriser tous vos mots de passe facilement. 
+            Notre générateur respecte les recommandations CNIL et vous permet de garder un coffre-fort fiable et accessible.
+        </p>
     </section>
 
 </div>
