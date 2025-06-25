@@ -6,6 +6,7 @@ use App\Repository\MdpRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MdpRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Mdp
 {
     #[ORM\Id]
@@ -38,6 +39,12 @@ class Mdp
         $this->updatedAt = new \DateTimeImmutable();
     }
 
+    #[ORM\PreUpdate]
+    public function updateTimestamps(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,7 +58,6 @@ class Mdp
     public function setTitre(string $titre): static
     {
         $this->titre = $titre;
-
         return $this;
     }
 
@@ -63,7 +69,6 @@ class Mdp
     public function setIdentifiant(string $identifiant): static
     {
         $this->identifiant = $identifiant;
-
         return $this;
     }
 
@@ -75,7 +80,6 @@ class Mdp
     public function setMdp(string $mdp): static
     {
         $this->mdp = $mdp;
-
         return $this;
     }
 
@@ -87,7 +91,6 @@ class Mdp
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -99,7 +102,6 @@ class Mdp
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
@@ -111,7 +113,6 @@ class Mdp
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
         return $this;
     }
 }

@@ -1,11 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Mdp{% endblock %}
+{% block title %}Ajouter un mot de passe | StrongBox{% endblock %}
 
 {% block body %}
-    <h1>Create new Mdp</h1>
+<h1 class="text-center mb-4">Ajouter un mot de passe</h1>
 
-    {{ include('mdp/_form.html.twig') }}
+    {{ form_start(form) }}
+      <div class="mb-3">
+        {{ form_label(form.Titre, 'Titre', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.Titre, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.Titre) }}
+      </div>
 
-    <a href="{{ path('app_mdp_index') }}">back to list</a>
+      <div class="mb-3">
+        {{ form_label(form.Identifiant, 'Identifiant', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.Identifiant, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.Identifiant) }}
+      </div>
+
+      <div class="mb-3">
+        {{ form_label(form.Mdp, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.Mdp, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.Mdp) }}
+      </div>
+      <div class="mb-3">
+          {{ form_label(form.createdAt, null, {'label_attr': {'class': 'form-label'}}) }}
+          {{ form_widget(form.createdAt, {'attr': {'class': 'form-control'}}) }}
+      </div>
+      <div class="mb-3">
+          {{ form_label(form.updatedAt, null, {'label_attr': {'class': 'form-label'}}) }}
+          {{ form_widget(form.updatedAt, {'attr': {'class': 'form-control'}}) }}
+      </div>
+
+      <button type="submit" class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
+
+        <div class="text-center mt-4">
+            <a href="{{ path('app_mdp_index') }}" class="btn btn-outline-secondary">
+                Retour à la liste
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

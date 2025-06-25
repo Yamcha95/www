@@ -1,45 +1,77 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
+    
+    <!-- Bootstrap CSS + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     {% block stylesheets %}{% endblock %}
+    
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      main {
+        flex: 1;
+      }
+      footer {
+        text-align: center;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-top: 1px solid #dee2e6;
+        margin-top: auto;
+      }
+    </style>
   </head>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{ path('app_home') }}"><img src="{{ asset('images/StrongBox (2).png') }}" alt="Logo" height="60"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_mdp_index') }}">Mes mots de passes</a>
-        </li>
-      </ul>
+  <body>
 
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        {% if app.user %}
-          <a class="btn btn-primary me-md-2" href="{{ path('app_profile') }}">
-            Bonjour, {{ app.user.email }}
-          </a>
-          <button type="button" class="btn btn-outline-danger" onclick="location.href='{{ path('app_logout') }}'">
-            Déconnexion
-          </button>
-        {% else %}
-          <button class="btn btn-outline-secondary" type="button" onclick="window.location.href='{{ path('app_register') }}'">Inscription</button>
-          <button class="btn btn-primary" type="button" onclick="window.location.href='{{ path('app_login') }}'">Connexion</button>
-        {% endif %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('app_home') }}">
+          <img src="{{ asset('images/StrongBox (2).png') }}" alt="Logo" height="60">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('app_mdp_index') }}">Mes mots de passe</a>
+            </li>
+          </ul>
+
+          <div class="d-flex gap-2">
+            {% if app.user %}
+              <a class="btn btn-primary" href="{{ path('app_profile') }}">
+                Bonjour, {{ app.user.email }}
+              </a>
+              <a class="btn btn-outline-danger" href="{{ path('app_logout') }}">Déconnexion</a>
+            {% else %}
+              <a class="btn btn-outline-secondary" href="{{ path('app_register') }}">Inscription</a>
+              <a class="btn btn-primary" href="{{ path('app_login') }}">Connexion</a>
+            {% endif %}
+          </div>
+        </div>
       </div>
+    </nav>
 
-    </div>
-  </div>
-</nav>
-<body>
-    {% block body %}{% endblock %}
-</body>
+    <main class="container my-4">
+      {% block body %}{% endblock %}
+    </main>
+
+    <footer>
+      <a href="{{ path('conditions_utilisation') }}">Conditions d’utilisation</a> |
+      <a href="{{ path('mentions_legales') }}">Mentions légales</a>
+      <p class="text-center mt-5"><small>© {{ "now"|date("Y") }} StrongBox. Tous droits réservés.</small></p>
+    </footer>
+  </body>
 </html>

@@ -1,11 +1,11 @@
-<h1>Confirm your email</h1>
-
-<p>Hello,</p>
-
-<p>Please confirm your email address by clicking the link below:</p>
-
-<a href="{{ signedUrl }}">Confirm my email</a>
-
-<p>This link will expire at {{ expiresAt|date('H:i:s d/m/Y') }}.</p>
-
-<p>Thank you!</p>
+<h1>Bienvenue sur StrongBox !</h1>
+<p>Merci pour votre inscription.</p>
+<p>
+    Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :
+</p>
+<p>
+    <a href="{{ signedUrl }}">Confirmer mon e-mail</a>
+</p>
+<p>
+    Ce lien expire le {{ expiresAt|date('d/m/Y H:i') }}.
+</p>

@@ -4,4 +4,12 @@
 
 {% block body %}
 <h1>Bienvenue sur votre profil !</h1>
+
+{# Lien vers le dashboard admin visible uniquement si ROLE_ADMIN #}
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin') }}" class="btn btn-primary">
+        Accéder au Dashboard Admin
+    </a>
+{% endif %}
+
 {% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conditions d’utilisation{% endblock %}
+
+{% block body %}
+<h2>Conditions d’utilisation</h2>
+    <p>Bienvenue sur StrongBox, votre application de génération et gestion sécurisée de mots de passe. En utilisant notre service, vous acceptez les conditions suivantes :</p>
+
+    <h4>1. Utilisation du service</h4>
+    <p>StrongBox vous permet de générer des mots de passe sécurisés et de stocker vos mots de passe personnels. Vous êtes responsable de l’utilisation que vous faites de ces données et de leur confidentialité.</p>
+
+    <h4>2. Sécurité et confidentialité</h4>
+    <p>Nous mettons tout en œuvre pour garantir la sécurité de vos données, notamment grâce au chiffrement et aux bonnes pratiques de développement. Cependant, nous ne pouvons pas garantir une sécurité absolue. Vous êtes invité à choisir des mots de passe forts et à ne pas partager vos identifiants de connexion.</p>
+
+    <h4>3. Données personnelles</h4>
+    <p>Les informations que vous saisissez dans StrongBox sont stockées dans notre base de données. Nous ne partageons pas vos données avec des tiers sans votre consentement explicite.</p>
+
+    <h4>4. Responsabilités</h4>
+    <p>StrongBox ne pourra être tenu responsable en cas de perte, vol ou divulgation non autorisée de vos mots de passe. Il est de votre responsabilité de garder vos accès confidentiels.</p>
+
+    <h4>5. Limitation d’usage</h4>
+    <p>L’utilisation abusive, frauduleuse ou non autorisée de StrongBox est interdite et pourra entraîner la suspension ou la suppression de votre compte.</p>
+
+    <h4>6. Modification des conditions</h4>
+    <p>Nous nous réservons le droit de modifier ces conditions à tout moment. Les modifications seront effectives dès leur publication sur le site.</p>
+
+    <h4>7. Contact</h4>
+    <p>Pour toute question concernant ces conditions, vous pouvez nous contacter via la page de contact du site.</p>
+
+    <p class="text-center mt-5"><small>© {{ "now"|date("Y") }} StrongBox. Tous droits réservés.</small></p>
+{% endblock %}

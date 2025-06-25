@@ -1,13 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Mdp{% endblock %}
+{% block title %}Modifier un mot de passe{% endblock %}
 
 {% block body %}
-    <h1>Edit Mdp</h1>
+    <div class="container mt-5" style="">
+        <h1 class="text-center mb-4">Modifier un mot de passe</h1>
 
-    {{ include('mdp/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ form_start(form) }}
+            <div class="mb-3">
+                {{ form_label(form.Titre, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.Titre, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.Identifiant, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.Identifiant, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.Mdp, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.Mdp, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.createdAt, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.createdAt, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.updatedAt, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.updatedAt, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-    <a href="{{ path('app_mdp_index') }}">back to list</a>
+            <div class="">
+                <button type="submit" class="btn btn-primary">Modifier</button>
+            </div>
+    {{ form_end(form) }}
 
-    {{ include('mdp/_delete_form.html.twig') }}
+        <div class="text-center mt-3">
+            <a href="{{ path('app_mdp_index') }}" class="btn btn-outline-secondary">Retour à la liste</a>
+        </div>
+    </div>
 {% endblock %}

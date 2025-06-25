@@ -4,59 +4,73 @@
 
 {% block body %}
 <div class="container mt-5">
-    <h1 class="mb-4">Bienvenue sur StrongBox.</h1>
-    <p class="mb-4">Générez un mot de passe sécurisé recommandé par la CNIL :</p>
 
-    {{ form_start(form, {'attr': {'class': 'mb-4'}}) }}
-        <div class="row g-3">
-            <div class="col-md-3">
-                {{ form_row(form.length) }}
-            </div>
-            <div class="col-md-9">
-                {{ form_row(form.include_uppercase) }}
-                {{ form_row(form.include_lowercase) }}
-                {{ form_row(form.include_numbers) }}
-                {{ form_row(form.include_symbols) }}
-            </div>
-        </div>
-        <button class="btn btn-primary mt-3">Générer</button>
-    {{ form_end(form) }}
+    <section class="text-center mb-5">
+        <h1 class="display-4 fw-bold">Bienvenue sur <span class="text-primary">StrongBox</h1>
+        <p class="lead">La sécurité de vos mots de passe, simplifiée et renforcée.</p>
+    </section>
 
-            {% if password %}
-            <div class="alert alert-success mt-4 d-flex justify-content-between align-items-center">
+    <section class="mb-5">
+
+                <h5 class="card-title mb-4">Générez un mot de passe sécurisé recommandé par la CNIL!</h5>
+
+                {{ form_start(form, {'attr': {'class': 'mb-3'}}) }}
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ form_row(form.length) }}
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-6">{{ form_row(form.include_uppercase) }}</div>
+                            <div class="col-md-6">{{ form_row(form.include_lowercase) }}</div>
+                            <div class="col-md-6">{{ form_row(form.include_numbers) }}</div>
+                            <div class="col-md-6">{{ form_row(form.include_symbols) }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end mt-3">
+                    <button class="btn btn-primary">Générer</button>
+                </div>
+                {{ form_end(form) }}
+    </section>
+
+    {% if password %}
+        <section class="mb-4">
+            <div class="alert alert-success d-flex justify-content-between align-items-center shadow-sm">
                 <div>
                     <strong>Mot de passe généré :</strong><br>
-                    <code id="generated-password" style="font-size: 1.2em;">{{ password }}</code>
+                    <code id="generated-password" style="font-size: 1.4em;">{{ password }}</code>
                 </div>
-                <button id="copy-btn" class="btn btn-outline-secondary btn-sm">Copier</button>
+                <button id="copy-btn" class="btn btn-secondary">Copier</button>
             </div>
 
-            <!-- Toast Bootstrap -->
             <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                <div class="toast-body">
-                    Mot de passe copié !
+                <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">Mot de passe copié !</div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div>
             </div>
 
             <script>
-            document.getElementById('copy-btn').addEventListener('click', () => {
-                const passwordText = document.getElementById('generated-password').innerText;
-                navigator.clipboard.writeText(passwordText).then(() => {
-                const toastEl = document.getElementById('copyToast');
-                const toast = new bootstrap.Toast(toastEl);
-                toast.show();
+                document.getElementById('copy-btn').addEventListener('click', () => {
+                    const passwordText = document.getElementById('generated-password').innerText;
+                    navigator.clipboard.writeText(passwordText).then(() => {
+                        const toastEl = document.getElementById('copyToast');
+                        const toast = new bootstrap.Toast(toastEl);
+                        toast.show();
+                    });
                 });
-            });
             </script>
-        {% endif %}
+        </section>
+    {% endif %}
 
-    <div class="d-grid gap-2 col-6 mx-auto">
-            <a href="{{ path('app_mdp_new') }}" class="btn btn-primary">+ Ajoutez un mot de passe</a>
-    </div>
+    <section class="text-center mt-5">
+        <a href="{{ path('app_mdp_new') }}" class="btn btn-outline-primary btn-lg">
+            ➕ Ajouter un mot de passe à votre coffre-fort
+        </a>
+    </section>
+
 </div>
 {% endblock %}

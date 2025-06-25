@@ -3,42 +3,49 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <div class="container mt-5" style="max-width: 400px;">
-        <h1 class="h3 mb-4 text-center">Connexion</h1>
+<div class="container mt-5" style="max-width: 400px;">
+    <h1 class="h3 mb-4 text-center">Connexion</h1>
 
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-{{ label == 'danger' ? 'danger' : 'success' }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label == 'danger' ? 'danger' : 'success' }}">
+                {{ message }}
+            </div>
         {% endfor %}
+    {% endfor %}
 
-        {% if error %}
-            <div class="alert alert-danger">
+    {% if error %}
+        <div class="alert alert-danger">
+            {% if error.messageKey == 'Trop de tentatives de connexion échouées, veuillez réessayer dans 5 minutes.' %}
+                Trop de tentatives, réessayez dans quelques minutes.
+            {% else %}
                 {{ error.messageKey|trans(error.messageData, 'security') }}
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
 
-        <form method="post">
-            <div class="mb-3">
-                <label for="username" class="form-label">Email</label>
-                <input type="email" value="{{ last_username }}" name="_username" id="username"
-                       class="form-control" autocomplete="email" required autofocus>
-            </div>
+    <form method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label">Email</label>
+            <input type="email" value="{{ last_username }}" name="_username" id="username"
+                   class="form-control" autocomplete="email" required autofocus>
+        </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Mot de passe</label>
-                <input type="password" name="_password" id="password"
-                       class="form-control" autocomplete="current-password" required>
-            </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input type="password" name="_password" id="password"
+                   class="form-control" autocomplete="current-password" required>
+        </div>
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <div class="mb-3 text-end">
+            <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+        </div>
 
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            <button class="btn btn-primary w-100" type="submit">
-                Se connecter
-            </button>
-        </form>
-    </div>
+        <button class="btn btn-primary w-100" type="submit">
+            Se connecter
+        </button>
+    </form>
+</div>
 {% endblock %}
